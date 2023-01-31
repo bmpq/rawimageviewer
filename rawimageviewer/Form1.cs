@@ -14,12 +14,23 @@ namespace rawimageviewer
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            if (pictureBox1.Image == null)
+            {
+                OpenFileDialog();
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnOpen_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("test");
+            OpenFileDialog();
+        }
+
+        private void OpenFileDialog()
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox1.Load(openFileDialog1.FileName);
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
