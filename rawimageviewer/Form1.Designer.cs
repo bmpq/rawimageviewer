@@ -35,6 +35,9 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.chkboxFit = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.inputHeight = new System.Windows.Forms.NumericUpDown();
+            this.inputWidth = new System.Windows.Forms.NumericUpDown();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -44,6 +47,9 @@
             this.splitContainer1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -53,6 +59,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177F));
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -138,6 +145,67 @@
             this.chkboxFit.UseVisualStyleBackColor = true;
             this.chkboxFit.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.inputHeight);
+            this.panel1.Controls.Add(this.inputWidth);
+            this.panel1.Location = new System.Drawing.Point(826, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(171, 66);
+            this.panel1.TabIndex = 1;
+            // 
+            // inputHeight
+            // 
+            this.inputHeight.Location = new System.Drawing.Point(3, 40);
+            this.inputHeight.Maximum = new decimal(new int[] {
+            65565,
+            0,
+            0,
+            0});
+            this.inputHeight.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.inputHeight.Name = "inputHeight";
+            this.inputHeight.Size = new System.Drawing.Size(120, 23);
+            this.inputHeight.TabIndex = 3;
+            this.inputHeight.Value = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+            this.inputHeight.ValueChanged += new System.EventHandler(this.inputHeight_Validated);
+            this.inputHeight.Validated += new System.EventHandler(this.inputHeight_Validated);
+            // 
+            // inputWidth
+            // 
+            this.inputWidth.Location = new System.Drawing.Point(3, 3);
+            this.inputWidth.Maximum = new decimal(new int[] {
+            65565,
+            0,
+            0,
+            0});
+            this.inputWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.inputWidth.Name = "inputWidth";
+            this.inputWidth.Size = new System.Drawing.Size(120, 23);
+            this.inputWidth.TabIndex = 2;
+            this.inputWidth.Value = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+            this.inputWidth.ValueChanged += new System.EventHandler(this.inputWidth_Validated);
+            this.inputWidth.Validated += new System.EventHandler(this.inputWidth_Validated);
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -156,6 +224,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -166,6 +235,9 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.inputHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputWidth)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -180,5 +252,8 @@
         private SplitContainer splitContainer1;
         private FlowLayoutPanel flowLayoutPanel2;
         private CheckBox chkboxFit;
+        private Panel panel1;
+        private NumericUpDown inputWidth;
+        private NumericUpDown inputHeight;
     }
 }
