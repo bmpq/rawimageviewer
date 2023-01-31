@@ -67,7 +67,7 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 249F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 203F));
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
@@ -89,7 +89,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(3, 4);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(858, 568);
+            this.pictureBox1.Size = new System.Drawing.Size(904, 568);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -109,8 +109,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel2);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.splitContainer1.Size = new System.Drawing.Size(858, 48);
-            this.splitContainer1.SplitterDistance = 375;
+            this.splitContainer1.Size = new System.Drawing.Size(904, 48);
+            this.splitContainer1.SplitterDistance = 393;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -168,7 +168,6 @@
             // 
             this.chkboxInterpolation.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.chkboxInterpolation.AutoSize = true;
-            this.chkboxInterpolation.Enabled = false;
             this.chkboxInterpolation.Location = new System.Drawing.Point(117, 4);
             this.chkboxInterpolation.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkboxInterpolation.Name = "chkboxInterpolation";
@@ -211,10 +210,10 @@
             this.panel1.Controls.Add(this.cbFormat);
             this.panel1.Controls.Add(this.inputHeight);
             this.panel1.Controls.Add(this.inputWidth);
-            this.panel1.Location = new System.Drawing.Point(867, 4);
+            this.panel1.Location = new System.Drawing.Point(913, 4);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(243, 362);
+            this.panel1.Size = new System.Drawing.Size(197, 362);
             this.panel1.TabIndex = 1;
             // 
             // label3
@@ -222,9 +221,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 101);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 20);
+            this.label3.Size = new System.Drawing.Size(146, 20);
             this.label3.TabIndex = 12;
-            this.label3.Text = "Channel order";
+            this.label3.Text = "Channel order (slow)";
             // 
             // label2
             // 
@@ -240,25 +239,27 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 307);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 20);
+            this.label1.Size = new System.Drawing.Size(100, 20);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Offset";
+            this.label1.Text = "Header offset";
             // 
             // cbSwap
             // 
+            this.cbSwap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cbSwap.FormattingEnabled = true;
             this.cbSwap.Location = new System.Drawing.Point(0, 125);
             this.cbSwap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbSwap.Name = "cbSwap";
-            this.cbSwap.Size = new System.Drawing.Size(138, 28);
+            this.cbSwap.Size = new System.Drawing.Size(183, 28);
             this.cbSwap.TabIndex = 9;
             this.cbSwap.SelectedValueChanged += new System.EventHandler(this.OnInput);
             // 
             // btnGuess
             // 
-            this.btnGuess.Location = new System.Drawing.Point(3, 264);
+            this.btnGuess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGuess.Location = new System.Drawing.Point(0, 264);
             this.btnGuess.Name = "btnGuess";
-            this.btnGuess.Size = new System.Drawing.Size(134, 29);
+            this.btnGuess.Size = new System.Drawing.Size(183, 29);
             this.btnGuess.TabIndex = 8;
             this.btnGuess.Text = "Guess";
             this.btnGuess.UseVisualStyleBackColor = true;
@@ -266,6 +267,7 @@
             // 
             // inputOffset
             // 
+            this.inputOffset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.inputOffset.Location = new System.Drawing.Point(0, 331);
             this.inputOffset.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inputOffset.Maximum = new decimal(new int[] {
@@ -274,7 +276,7 @@
             0,
             0});
             this.inputOffset.Name = "inputOffset";
-            this.inputOffset.Size = new System.Drawing.Size(137, 27);
+            this.inputOffset.Size = new System.Drawing.Size(183, 27);
             this.inputOffset.TabIndex = 7;
             this.inputOffset.Value = new decimal(new int[] {
             1,
@@ -288,24 +290,26 @@
             this.textFormatStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textFormatStatus.AutoSize = true;
             this.textFormatStatus.Location = new System.Drawing.Point(3, 41);
-            this.textFormatStatus.MaximumSize = new System.Drawing.Size(240, 0);
+            this.textFormatStatus.MaximumSize = new System.Drawing.Size(190, 0);
             this.textFormatStatus.Name = "textFormatStatus";
-            this.textFormatStatus.Size = new System.Drawing.Size(239, 40);
+            this.textFormatStatus.Size = new System.Drawing.Size(180, 40);
             this.textFormatStatus.TabIndex = 6;
             this.textFormatStatus.Text = "dsafadsf asbdfsbsdfgb sdfg sdfgdf asd fasd fasd ";
             // 
             // cbFormat
             // 
+            this.cbFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cbFormat.FormattingEnabled = true;
             this.cbFormat.Location = new System.Drawing.Point(0, 9);
             this.cbFormat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbFormat.Name = "cbFormat";
-            this.cbFormat.Size = new System.Drawing.Size(138, 28);
+            this.cbFormat.Size = new System.Drawing.Size(183, 28);
             this.cbFormat.TabIndex = 5;
             this.cbFormat.SelectedValueChanged += new System.EventHandler(this.OnInput);
             // 
             // inputHeight
             // 
+            this.inputHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.inputHeight.Location = new System.Drawing.Point(0, 230);
             this.inputHeight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inputHeight.Maximum = new decimal(new int[] {
@@ -319,7 +323,7 @@
             0,
             0});
             this.inputHeight.Name = "inputHeight";
-            this.inputHeight.Size = new System.Drawing.Size(137, 27);
+            this.inputHeight.Size = new System.Drawing.Size(183, 27);
             this.inputHeight.TabIndex = 3;
             this.inputHeight.Value = new decimal(new int[] {
             512,
@@ -330,6 +334,7 @@
             // 
             // inputWidth
             // 
+            this.inputWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.inputWidth.Location = new System.Drawing.Point(0, 195);
             this.inputWidth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inputWidth.Maximum = new decimal(new int[] {
@@ -343,7 +348,7 @@
             0,
             0});
             this.inputWidth.Name = "inputWidth";
-            this.inputWidth.Size = new System.Drawing.Size(138, 27);
+            this.inputWidth.Size = new System.Drawing.Size(183, 27);
             this.inputWidth.TabIndex = 2;
             this.inputWidth.Value = new decimal(new int[] {
             512,

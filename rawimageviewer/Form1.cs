@@ -12,7 +12,7 @@ namespace rawimageviewer
 
         public Form1(string path)
         {
-            loadedFile = new byte[2];
+            loadedFile = new byte[4];
 
             InitializeComponent();
 
@@ -20,6 +20,21 @@ namespace rawimageviewer
             {
                 LoadFile(path);
                 GuessDimensions();
+
+                /*
+                if (path.EndsWith(".aecache"))
+                {
+                    // default settings for after effects cached rendered frames
+
+                    // r8g8b8a8
+                    cbFormat.SelectedIndex = 15;
+
+                    // swap blue and red channels, i dont know why
+                    cbSwap.SelectedIndex = 3;
+
+                    if (inputOffset.Value == 0)
+                        inputOffset.Value = 1;
+                }*/
             }
         }
 
