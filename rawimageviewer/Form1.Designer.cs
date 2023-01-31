@@ -37,6 +37,7 @@
             this.chkboxInterpolation = new System.Windows.Forms.CheckBox();
             this.chkboxFit = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbFormat = new System.Windows.Forms.ComboBox();
             this.inputHeight = new System.Windows.Forms.NumericUpDown();
             this.inputWidth = new System.Windows.Forms.NumericUpDown();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -170,16 +171,26 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.cbFormat);
             this.panel1.Controls.Add(this.inputHeight);
             this.panel1.Controls.Add(this.inputWidth);
             this.panel1.Location = new System.Drawing.Point(826, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(171, 66);
+            this.panel1.Size = new System.Drawing.Size(171, 94);
             this.panel1.TabIndex = 1;
+            // 
+            // cbFormat
+            // 
+            this.cbFormat.FormattingEnabled = true;
+            this.cbFormat.Location = new System.Drawing.Point(2, 3);
+            this.cbFormat.Name = "cbFormat";
+            this.cbFormat.Size = new System.Drawing.Size(121, 23);
+            this.cbFormat.TabIndex = 5;
+            this.cbFormat.SelectedValueChanged += new System.EventHandler(this.cbFormat_SelectedValueChanged);
             // 
             // inputHeight
             // 
-            this.inputHeight.Location = new System.Drawing.Point(3, 40);
+            this.inputHeight.Location = new System.Drawing.Point(3, 68);
             this.inputHeight.Maximum = new decimal(new int[] {
             65565,
             0,
@@ -203,7 +214,7 @@
             // 
             // inputWidth
             // 
-            this.inputWidth.Location = new System.Drawing.Point(3, 3);
+            this.inputWidth.Location = new System.Drawing.Point(3, 39);
             this.inputWidth.Maximum = new decimal(new int[] {
             65565,
             0,
@@ -275,5 +286,6 @@
         private NumericUpDown inputWidth;
         private NumericUpDown inputHeight;
         private CheckBox chkboxInterpolation;
+        private ComboBox cbFormat;
     }
 }

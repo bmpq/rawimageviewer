@@ -17,7 +17,8 @@ namespace rawimageviewer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            cbFormat.DataSource = Enum.GetValues(typeof(PixelFormat));
+            cbFormat.SelectedIndex = 8;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -44,35 +45,45 @@ namespace rawimageviewer
         private void LoadFile(string imgPath, int width, int height)
         {
             loadedFile = File.ReadAllBytes(imgPath);
-
             ReadConfig();
         }
 
         void ReadConfig()
         {
+            PixelFormat format = PixelFormat.Format32bppArgb;
+
+            Enum.TryParse<PixelFormat>(cbFormat.SelectedValue.ToString(), out format);
+
             pictureBox1.SizeMode = chkboxFit.Checked ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.Normal;
             pictureBox1.InterpolationMode = chkboxInterpolation.Checked 
                 ? System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor
                 : System.Drawing.Drawing2D.InterpolationMode.Default;
 
-            Decode((int)inputWidth.Value, (int)inputHeight.Value, PixelFormat.Format8bppIndexed);
+            Decode((int)inputWidth.Value, (int)inputHeight.Value, format);
         }
 
         private void Decode(int width, int height, PixelFormat format)
         {
-            var bmp = new Bitmap(width, height, format);
+            try
+            {
+                var bmp = new Bitmap(width, height, format);
 
-            BitmapData bmpData = bmp.LockBits(
-                new Rectangle(0, 0,
-                bmp.Width,
-                bmp.Height),
-                ImageLockMode.WriteOnly,
-                bmp.PixelFormat);
+                BitmapData bmpData = bmp.LockBits(
+                    new Rectangle(0, 0,
+                    bmp.Width,
+                    bmp.Height),
+                    ImageLockMode.WriteOnly,
+                    bmp.PixelFormat);
 
-            Marshal.Copy(loadedFile, 0, bmpData.Scan0, Math.Min(loadedFile.Length, bmpData.Height*bmpData.Width));
-            bmp.UnlockBits(bmpData);
+                Marshal.Copy(loadedFile, 0, bmpData.Scan0, Math.Min(loadedFile.Length, Math.Abs(bmpData.Stride) * bmp.Height));
+                bmp.UnlockBits(bmpData);
 
-            pictureBox1.Image = bmp;
+                pictureBox1.Image = bmp;
+            }
+            catch (ArgumentException e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -95,6 +106,11 @@ namespace rawimageviewer
         }
 
         private void inputHeight_Validated(object sender, EventArgs e)
+        {
+            ReadConfig();
+        }
+
+        private void cbFormat_SelectedValueChanged(object sender, EventArgs e)
         {
             ReadConfig();
         }

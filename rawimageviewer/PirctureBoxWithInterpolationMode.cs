@@ -11,6 +11,14 @@ public class PictureBoxWithInterpolationMode : PictureBox
     protected override void OnPaint(PaintEventArgs paintEventArgs)
     {
         paintEventArgs.Graphics.InterpolationMode = InterpolationMode;
-        base.OnPaint(paintEventArgs);
+
+        try
+        {
+            base.OnPaint(paintEventArgs);
+        }
+        catch (ArgumentException e)
+        {
+            MessageBox.Show(e.Message);
+        }
     }
 }
