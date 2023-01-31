@@ -37,6 +37,8 @@
             this.chkboxInterpolation = new System.Windows.Forms.CheckBox();
             this.chkboxFit = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbSwap = new System.Windows.Forms.ComboBox();
+            this.btnGuess = new System.Windows.Forms.Button();
             this.inputOffset = new System.Windows.Forms.NumericUpDown();
             this.textFormatStatus = new System.Windows.Forms.Label();
             this.cbFormat = new System.Windows.Forms.ComboBox();
@@ -183,6 +185,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.cbSwap);
+            this.panel1.Controls.Add(this.btnGuess);
             this.panel1.Controls.Add(this.inputOffset);
             this.panel1.Controls.Add(this.textFormatStatus);
             this.panel1.Controls.Add(this.cbFormat);
@@ -191,12 +195,32 @@
             this.panel1.Location = new System.Drawing.Point(897, 4);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(243, 222);
+            this.panel1.Size = new System.Drawing.Size(243, 317);
             this.panel1.TabIndex = 1;
+            // 
+            // cbSwap
+            // 
+            this.cbSwap.FormattingEnabled = true;
+            this.cbSwap.Location = new System.Drawing.Point(0, 116);
+            this.cbSwap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cbSwap.Name = "cbSwap";
+            this.cbSwap.Size = new System.Drawing.Size(138, 28);
+            this.cbSwap.TabIndex = 9;
+            this.cbSwap.SelectedValueChanged += new System.EventHandler(this.OnInput);
+            // 
+            // btnGuess
+            // 
+            this.btnGuess.Location = new System.Drawing.Point(147, 208);
+            this.btnGuess.Name = "btnGuess";
+            this.btnGuess.Size = new System.Drawing.Size(94, 29);
+            this.btnGuess.TabIndex = 8;
+            this.btnGuess.Text = "Guess";
+            this.btnGuess.UseVisualStyleBackColor = true;
+            this.btnGuess.Click += new System.EventHandler(this.btnGuess_Click);
             // 
             // inputOffset
             // 
-            this.inputOffset.Location = new System.Drawing.Point(2, 191);
+            this.inputOffset.Location = new System.Drawing.Point(0, 286);
             this.inputOffset.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inputOffset.Maximum = new decimal(new int[] {
             65565,
@@ -206,7 +230,12 @@
             this.inputOffset.Name = "inputOffset";
             this.inputOffset.Size = new System.Drawing.Size(137, 27);
             this.inputOffset.TabIndex = 7;
-            this.inputOffset.ValueChanged += new System.EventHandler(this.inputOffset_ValueChanged);
+            this.inputOffset.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.inputOffset.ValueChanged += new System.EventHandler(this.OnInput);
             // 
             // textFormatStatus
             // 
@@ -219,16 +248,16 @@
             // cbFormat
             // 
             this.cbFormat.FormattingEnabled = true;
-            this.cbFormat.Location = new System.Drawing.Point(2, 4);
+            this.cbFormat.Location = new System.Drawing.Point(0, 9);
             this.cbFormat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbFormat.Name = "cbFormat";
             this.cbFormat.Size = new System.Drawing.Size(138, 28);
             this.cbFormat.TabIndex = 5;
-            this.cbFormat.SelectedValueChanged += new System.EventHandler(this.cbFormat_SelectedValueChanged);
+            this.cbFormat.SelectedValueChanged += new System.EventHandler(this.OnInput);
             // 
             // inputHeight
             // 
-            this.inputHeight.Location = new System.Drawing.Point(2, 135);
+            this.inputHeight.Location = new System.Drawing.Point(0, 230);
             this.inputHeight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inputHeight.Maximum = new decimal(new int[] {
             65565,
@@ -248,11 +277,11 @@
             0,
             0,
             0});
-            this.inputHeight.ValueChanged += new System.EventHandler(this.inputHeight_Validated);
+            this.inputHeight.ValueChanged += new System.EventHandler(this.OnInput);
             // 
             // inputWidth
             // 
-            this.inputWidth.Location = new System.Drawing.Point(2, 96);
+            this.inputWidth.Location = new System.Drawing.Point(0, 195);
             this.inputWidth.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inputWidth.Maximum = new decimal(new int[] {
             65565,
@@ -272,7 +301,7 @@
             0,
             0,
             0});
-            this.inputWidth.ValueChanged += new System.EventHandler(this.inputWidth_Validated);
+            this.inputWidth.ValueChanged += new System.EventHandler(this.OnInput);
             // 
             // openFileDialog1
             // 
@@ -330,5 +359,7 @@
         private ComboBox cbFormat;
         private Label textFormatStatus;
         private NumericUpDown inputOffset;
+        private Button btnGuess;
+        private ComboBox cbSwap;
     }
 }

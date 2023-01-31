@@ -24,6 +24,9 @@ namespace rawimageviewer
         {
             cbFormat.DataSource = Enum.GetValues(typeof(PixelFormat));
             cbFormat.SelectedIndex = 15;
+
+            cbSwap.DataSource = Enum.GetValues(typeof(BitmapChannelSwapper.ColorSwapType));
+            cbSwap.SelectedIndex = 3;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -59,17 +62,24 @@ namespace rawimageviewer
 
             var selectedFormat = cbFormat.SelectedValue;
             if (selectedFormat != null)
-                Enum.TryParse<PixelFormat>(selectedFormat.ToString(), out format);
+                Enum.TryParse(selectedFormat.ToString(), out format);
+
+            BitmapChannelSwapper.ColorSwapType swapType = BitmapChannelSwapper.ColorSwapType.None;
+            var selectedSwap = cbSwap.SelectedValue;
+            if (selectedSwap != null)
+                Enum.TryParse(selectedSwap.ToString(), out swapType);
 
             pictureBox1.SizeMode = chkboxFit.Checked ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.Normal;
             pictureBox1.InterpolationMode = chkboxInterpolation.Checked 
                 ? System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor
                 : System.Drawing.Drawing2D.InterpolationMode.Default;
 
-            Decode((int)inputWidth.Value, (int)inputHeight.Value, (int)inputOffset.Value, format);
+
+
+            Decode((int)inputWidth.Value, (int)inputHeight.Value, (int)inputOffset.Value, format, swapType);
         }
 
-        private void Decode(int width, int height, int offset, PixelFormat format)
+        private void Decode(int width, int height, int offset, PixelFormat format, BitmapChannelSwapper.ColorSwapType swapType)
         {
             try
             {
@@ -83,7 +93,10 @@ namespace rawimageviewer
                     bmp.PixelFormat);
 
                 Marshal.Copy(loadedFile, offset, bmpData.Scan0, Math.Min(loadedFile.Length, Math.Abs(bmpData.Stride) * bmp.Height) - offset);
+
                 bmp.UnlockBits(bmpData);
+
+                bmp = BitmapChannelSwapper.SwapColors(bmp, swapType);
 
                 pictureBox1.Image = bmp;
 
@@ -119,24 +132,23 @@ namespace rawimageviewer
             ReadConfig();
         }
 
-        private void cbFormat_SelectedValueChanged(object sender, EventArgs e)
+        private void OnInput(object sender, EventArgs e)
         {
             ReadConfig();
         }
 
-        private void inputWidth_Validated(object sender, EventArgs e)
+        private void btnGuess_Click(object sender, EventArgs e)
         {
-            ReadConfig();
+            GuessDimensions();
         }
 
-        private void inputHeight_Validated(object sender, EventArgs e)
+        private void GuessDimensions()
         {
-            ReadConfig();
-        }
+            int width = (int)Math.Sqrt(loadedFile.Length / 4);
+            int height = (int)(width / 1.777777777777778);
 
-        private void inputOffset_ValueChanged(object sender, EventArgs e)
-        {
-            ReadConfig();
+            inputWidth.Value = width;
+            inputHeight.Value = height;
         }
     }
 }
