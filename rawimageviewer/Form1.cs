@@ -59,10 +59,10 @@ namespace rawimageviewer
                 ? System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor
                 : System.Drawing.Drawing2D.InterpolationMode.Default;
 
-            Decode((int)inputWidth.Value, (int)inputHeight.Value, format);
+            Decode((int)inputWidth.Value, (int)inputHeight.Value, (int)inputOffset.Value, format);
         }
 
-        private void Decode(int width, int height, PixelFormat format)
+        private void Decode(int width, int height, int offset, PixelFormat format)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace rawimageviewer
                     ImageLockMode.WriteOnly,
                     bmp.PixelFormat);
 
-                Marshal.Copy(loadedFile, 0, bmpData.Scan0, Math.Min(loadedFile.Length, Math.Abs(bmpData.Stride) * bmp.Height));
+                Marshal.Copy(loadedFile, offset, bmpData.Scan0, Math.Min(loadedFile.Length, Math.Abs(bmpData.Stride) * bmp.Height) - offset);
                 bmp.UnlockBits(bmpData);
 
                 pictureBox1.Image = bmp;
@@ -112,6 +112,11 @@ namespace rawimageviewer
             ReadConfig();
         }
 
+        private void cbFormat_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ReadConfig();
+        }
+
         private void inputWidth_Validated(object sender, EventArgs e)
         {
             ReadConfig();
@@ -122,7 +127,7 @@ namespace rawimageviewer
             ReadConfig();
         }
 
-        private void cbFormat_SelectedValueChanged(object sender, EventArgs e)
+        private void inputOffset_ValueChanged(object sender, EventArgs e)
         {
             ReadConfig();
         }
