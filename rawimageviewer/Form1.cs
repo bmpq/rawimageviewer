@@ -11,6 +11,7 @@ namespace rawimageviewer
         public Form1()
         {
             InitializeComponent();
+            pictureBox1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
         }
 
         private void Form1_Load(object sender, EventArgs e)

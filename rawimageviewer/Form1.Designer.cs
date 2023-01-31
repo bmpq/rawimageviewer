@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new PictureBoxWithInterpolationMode();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -245,7 +245,7 @@
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private PictureBox pictureBox1;
+        private PictureBoxWithInterpolationMode pictureBox1;
         private FlowLayoutPanel flowLayoutPanel1;
         private Button btnOpen;
         private OpenFileDialog openFileDialog1;
