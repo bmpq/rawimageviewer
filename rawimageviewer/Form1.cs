@@ -40,5 +40,10 @@ namespace rawimageviewer
                 System.Environment.Exit(1);
             }
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            pictureBox1.SizeMode = chkboxFit.Checked ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.Normal;
+        }
     }
 }
