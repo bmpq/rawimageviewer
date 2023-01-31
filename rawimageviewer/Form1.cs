@@ -8,17 +8,22 @@ namespace rawimageviewer
     {
         byte[] loadedFile;
 
-        public Form1()
+        public Form1(string path)
         {
             loadedFile = new byte[2];
 
             InitializeComponent();
+
+            if (path != null)
+            {
+                LoadFile(path);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             cbFormat.DataSource = Enum.GetValues(typeof(PixelFormat));
-            cbFormat.SelectedIndex = 8;
+            cbFormat.SelectedIndex = 15;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -38,11 +43,11 @@ namespace rawimageviewer
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                LoadFile(openFileDialog1.FileName, 1920, 800);
+                LoadFile(openFileDialog1.FileName);
             }
         }
 
-        private void LoadFile(string imgPath, int width, int height)
+        private void LoadFile(string imgPath)
         {
             loadedFile = File.ReadAllBytes(imgPath);
             ReadConfig();
@@ -52,7 +57,9 @@ namespace rawimageviewer
         {
             PixelFormat format = PixelFormat.Format32bppArgb;
 
-            Enum.TryParse<PixelFormat>(cbFormat.SelectedValue.ToString(), out format);
+            var selectedFormat = cbFormat.SelectedValue;
+            if (selectedFormat != null)
+                Enum.TryParse<PixelFormat>(selectedFormat.ToString(), out format);
 
             pictureBox1.SizeMode = chkboxFit.Checked ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.Normal;
             pictureBox1.InterpolationMode = chkboxInterpolation.Checked 
