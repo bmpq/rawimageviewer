@@ -33,10 +33,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnOpen = new System.Windows.Forms.Button();
+            this.textSize = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.chkboxInterpolation = new System.Windows.Forms.CheckBox();
             this.chkboxFit = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.cbSwap = new System.Windows.Forms.ComboBox();
             this.btnGuess = new System.Windows.Forms.Button();
             this.inputOffset = new System.Windows.Forms.NumericUpDown();
@@ -74,7 +78,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1143, 899);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1113, 632);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -85,7 +89,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(3, 4);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(888, 835);
+            this.pictureBox1.Size = new System.Drawing.Size(858, 568);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -93,7 +97,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 847);
+            this.splitContainer1.Location = new System.Drawing.Point(3, 580);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -105,8 +109,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel2);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.splitContainer1.Size = new System.Drawing.Size(888, 48);
-            this.splitContainer1.SplitterDistance = 389;
+            this.splitContainer1.Size = new System.Drawing.Size(858, 48);
+            this.splitContainer1.SplitterDistance = 375;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -116,10 +120,11 @@
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Controls.Add(this.btnOpen);
+            this.flowLayoutPanel1.Controls.Add(this.textSize);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 4);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(92, 41);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(113, 41);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // btnOpen
@@ -133,6 +138,17 @@
             this.btnOpen.Text = "Open...";
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
+            // textSize
+            // 
+            this.textSize.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.textSize.AutoSize = true;
+            this.textSize.Location = new System.Drawing.Point(95, 10);
+            this.textSize.Name = "textSize";
+            this.textSize.Size = new System.Drawing.Size(15, 20);
+            this.textSize.TabIndex = 1;
+            this.textSize.Text = "-";
+            this.textSize.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // flowLayoutPanel2
             // 
@@ -185,6 +201,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbSwap);
             this.panel1.Controls.Add(this.btnGuess);
             this.panel1.Controls.Add(this.inputOffset);
@@ -192,16 +211,43 @@
             this.panel1.Controls.Add(this.cbFormat);
             this.panel1.Controls.Add(this.inputHeight);
             this.panel1.Controls.Add(this.inputWidth);
-            this.panel1.Location = new System.Drawing.Point(897, 4);
+            this.panel1.Location = new System.Drawing.Point(867, 4);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(243, 317);
+            this.panel1.Size = new System.Drawing.Size(243, 362);
             this.panel1.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 101);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 20);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Channel order";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 171);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 20);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Size";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 307);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 20);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Offset";
             // 
             // cbSwap
             // 
             this.cbSwap.FormattingEnabled = true;
-            this.cbSwap.Location = new System.Drawing.Point(0, 116);
+            this.cbSwap.Location = new System.Drawing.Point(0, 125);
             this.cbSwap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cbSwap.Name = "cbSwap";
             this.cbSwap.Size = new System.Drawing.Size(138, 28);
@@ -210,9 +256,9 @@
             // 
             // btnGuess
             // 
-            this.btnGuess.Location = new System.Drawing.Point(147, 208);
+            this.btnGuess.Location = new System.Drawing.Point(3, 264);
             this.btnGuess.Name = "btnGuess";
-            this.btnGuess.Size = new System.Drawing.Size(94, 29);
+            this.btnGuess.Size = new System.Drawing.Size(134, 29);
             this.btnGuess.TabIndex = 8;
             this.btnGuess.Text = "Guess";
             this.btnGuess.UseVisualStyleBackColor = true;
@@ -220,30 +266,28 @@
             // 
             // inputOffset
             // 
-            this.inputOffset.Location = new System.Drawing.Point(0, 286);
+            this.inputOffset.Location = new System.Drawing.Point(0, 331);
             this.inputOffset.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.inputOffset.Maximum = new decimal(new int[] {
-            65565,
+            -2147483648,
             0,
             0,
             0});
             this.inputOffset.Name = "inputOffset";
             this.inputOffset.Size = new System.Drawing.Size(137, 27);
             this.inputOffset.TabIndex = 7;
-            this.inputOffset.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.inputOffset.ValueChanged += new System.EventHandler(this.OnInput);
             // 
             // textFormatStatus
             // 
+            this.textFormatStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textFormatStatus.AutoSize = true;
-            this.textFormatStatus.Location = new System.Drawing.Point(3, 39);
+            this.textFormatStatus.Location = new System.Drawing.Point(3, 41);
+            this.textFormatStatus.MaximumSize = new System.Drawing.Size(240, 0);
             this.textFormatStatus.Name = "textFormatStatus";
-            this.textFormatStatus.Size = new System.Drawing.Size(0, 20);
+            this.textFormatStatus.Size = new System.Drawing.Size(239, 40);
             this.textFormatStatus.TabIndex = 6;
+            this.textFormatStatus.Text = "dsafadsf asbdfsbsdfgb sdfg sdfgdf asd fasd fasd ";
             // 
             // cbFormat
             // 
@@ -294,7 +338,7 @@
             0,
             0});
             this.inputWidth.Name = "inputWidth";
-            this.inputWidth.Size = new System.Drawing.Size(137, 27);
+            this.inputWidth.Size = new System.Drawing.Size(138, 27);
             this.inputWidth.TabIndex = 2;
             this.inputWidth.Value = new decimal(new int[] {
             512,
@@ -312,7 +356,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1143, 899);
+            this.ClientSize = new System.Drawing.Size(1113, 632);
             this.Controls.Add(this.tableLayoutPanel1);
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -331,6 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -361,5 +406,9 @@
         private NumericUpDown inputOffset;
         private Button btnGuess;
         private ComboBox cbSwap;
+        private Label label2;
+        private Label label1;
+        private Label textSize;
+        private Label label3;
     }
 }

@@ -18,7 +18,7 @@ namespace rawimageviewer
             {
                 base.OnPaint(paintEventArgs);
             }
-            catch (ArgumentException e)
+            catch
             {
                 Image = null;
             }

@@ -1,6 +1,8 @@
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using static System.Windows.Forms.DataFormats;
 
 namespace rawimageviewer
 {
@@ -17,6 +19,7 @@ namespace rawimageviewer
             if (path != null)
             {
                 LoadFile(path);
+                GuessDimensions();
             }
         }
 
@@ -99,22 +102,29 @@ namespace rawimageviewer
                 bmp = BitmapChannelSwapper.SwapColors(bmp, swapType);
 
                 pictureBox1.Image = bmp;
-
-                if (pictureBox1.Image != null)
-                {
-                    textFormatStatus.Text = "Decoded with " + format.ToString() + "\n(Stride: " + bmpData.Stride + ")";
-                    textFormatStatus.ForeColor = default(Color);
-                }
             }
-            catch (ArgumentException e)
+            catch
             {
                 pictureBox1.Image = null;
             }
 
+            UpdateOutput();
+        }
+
+        private void UpdateOutput()
+        {
+            var f = new NumberFormatInfo { NumberGroupSeparator = " " };
+            textSize.Text = "File size: " + loadedFile.Length.ToString("N0", f) + " bytes";
+
             if (pictureBox1.Image == null)
             {
-                textFormatStatus.Text = "Failed to decode in " + format.ToString();
+                textFormatStatus.Text = "Failed to decode in " + cbFormat.SelectedItem.ToString();
                 textFormatStatus.ForeColor = Color.Red;
+            }
+            else
+            {
+                textFormatStatus.Text = "Decoded with " + pictureBox1.Image.PixelFormat.ToString();
+                textFormatStatus.ForeColor = default(Color);
             }
         }
 
@@ -146,6 +156,8 @@ namespace rawimageviewer
         {
             int width = (int)Math.Sqrt(loadedFile.Length / 4);
             int height = (int)(width / 1.777777777777778);
+
+            //if (loadedFile.Length > 6kb)
 
             inputWidth.Value = width;
             inputHeight.Value = height;
