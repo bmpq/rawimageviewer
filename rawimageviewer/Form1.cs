@@ -79,10 +79,22 @@ namespace rawimageviewer
                 bmp.UnlockBits(bmpData);
 
                 pictureBox1.Image = bmp;
+
+                if (pictureBox1.Image != null)
+                {
+                    textFormatStatus.Text = "Decoded with " + format.ToString() + "\n(Stride: " + bmpData.Stride + ")";
+                    textFormatStatus.ForeColor = default(Color);
+                }
             }
             catch (ArgumentException e)
             {
-                MessageBox.Show(e.Message);
+                pictureBox1.Image = null;
+            }
+
+            if (pictureBox1.Image == null)
+            {
+                textFormatStatus.Text = "Failed to decode in " + format.ToString();
+                textFormatStatus.ForeColor = Color.Red;
             }
         }
 

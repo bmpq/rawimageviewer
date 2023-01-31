@@ -1,24 +1,27 @@
 ﻿using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-/// <summary>
-/// Inherits from PictureBox; adds Interpolation Mode Setting
-/// </summary>
-public class PictureBoxWithInterpolationMode : PictureBox
+namespace rawimageviewer
 {
-    public InterpolationMode InterpolationMode { get; set; }
-
-    protected override void OnPaint(PaintEventArgs paintEventArgs)
+    /// <summary>
+    /// Inherits from PictureBox; adds Interpolation Mode Setting
+    /// </summary>
+    public class PictureBoxWithInterpolationMode : PictureBox
     {
-        paintEventArgs.Graphics.InterpolationMode = InterpolationMode;
+        public InterpolationMode InterpolationMode { get; set; }
 
-        try
+        protected override void OnPaint(PaintEventArgs paintEventArgs)
         {
-            base.OnPaint(paintEventArgs);
-        }
-        catch (ArgumentException e)
-        {
-            MessageBox.Show(e.Message);
+            paintEventArgs.Graphics.InterpolationMode = InterpolationMode;
+
+            try
+            {
+                base.OnPaint(paintEventArgs);
+            }
+            catch (ArgumentException e)
+            {
+                Image = null;
+            }
         }
     }
 }

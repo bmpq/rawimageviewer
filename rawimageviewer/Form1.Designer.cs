@@ -37,6 +37,7 @@
             this.chkboxInterpolation = new System.Windows.Forms.CheckBox();
             this.chkboxFit = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textFormatStatus = new System.Windows.Forms.Label();
             this.cbFormat = new System.Windows.Forms.ComboBox();
             this.inputHeight = new System.Windows.Forms.NumericUpDown();
             this.inputWidth = new System.Windows.Forms.NumericUpDown();
@@ -58,7 +59,7 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 218F));
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
@@ -78,7 +79,7 @@
             this.pictureBox1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(817, 626);
+            this.pictureBox1.Size = new System.Drawing.Size(776, 626);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -97,8 +98,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel2);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.splitContainer1.Size = new System.Drawing.Size(817, 36);
-            this.splitContainer1.SplitterDistance = 359;
+            this.splitContainer1.Size = new System.Drawing.Size(776, 36);
+            this.splitContainer1.SplitterDistance = 340;
             this.splitContainer1.TabIndex = 1;
             // 
             // flowLayoutPanel1
@@ -171,13 +172,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoSize = true;
             this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.textFormatStatus);
             this.panel1.Controls.Add(this.cbFormat);
             this.panel1.Controls.Add(this.inputHeight);
             this.panel1.Controls.Add(this.inputWidth);
-            this.panel1.Location = new System.Drawing.Point(826, 3);
+            this.panel1.Location = new System.Drawing.Point(785, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(171, 94);
+            this.panel1.Size = new System.Drawing.Size(212, 127);
             this.panel1.TabIndex = 1;
+            // 
+            // textFormatStatus
+            // 
+            this.textFormatStatus.AutoSize = true;
+            this.textFormatStatus.Location = new System.Drawing.Point(3, 29);
+            this.textFormatStatus.Name = "textFormatStatus";
+            this.textFormatStatus.Size = new System.Drawing.Size(0, 15);
+            this.textFormatStatus.TabIndex = 6;
             // 
             // cbFormat
             // 
@@ -190,7 +200,7 @@
             // 
             // inputHeight
             // 
-            this.inputHeight.Location = new System.Drawing.Point(3, 68);
+            this.inputHeight.Location = new System.Drawing.Point(2, 101);
             this.inputHeight.Maximum = new decimal(new int[] {
             65565,
             0,
@@ -214,7 +224,7 @@
             // 
             // inputWidth
             // 
-            this.inputWidth.Location = new System.Drawing.Point(3, 39);
+            this.inputWidth.Location = new System.Drawing.Point(2, 72);
             this.inputWidth.Maximum = new decimal(new int[] {
             65565,
             0,
@@ -266,6 +276,7 @@
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.inputHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputWidth)).EndInit();
             this.ResumeLayout(false);
@@ -287,5 +298,6 @@
         private NumericUpDown inputHeight;
         private CheckBox chkboxInterpolation;
         private ComboBox cbFormat;
+        private Label textFormatStatus;
     }
 }
