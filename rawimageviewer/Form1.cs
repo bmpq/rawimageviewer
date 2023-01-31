@@ -157,7 +157,26 @@ namespace rawimageviewer
             int width = (int)Math.Sqrt(loadedFile.Length / 4);
             int height = (int)(width / 1.777777777777778);
 
-            //if (loadedFile.Length > 6kb)
+            int size = loadedFile.Length;
+
+            if (size > 24500100)
+            {
+                width = 3840;
+                height = 1608;
+            }
+            else if (size > 6150100)
+            {
+                width = 1920;
+                height = 800;
+
+                if (size > 7900100)
+                    height = 1080;
+            }
+            else if (size > 940000)
+            {
+                width = 640;
+                height = 640;
+            }
 
             inputWidth.Value = width;
             inputHeight.Value = height;

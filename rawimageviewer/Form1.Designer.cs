@@ -168,8 +168,6 @@
             // 
             this.chkboxInterpolation.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.chkboxInterpolation.AutoSize = true;
-            this.chkboxInterpolation.Checked = true;
-            this.chkboxInterpolation.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkboxInterpolation.Enabled = false;
             this.chkboxInterpolation.Location = new System.Drawing.Point(117, 4);
             this.chkboxInterpolation.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -185,6 +183,8 @@
             // 
             this.chkboxFit.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.chkboxFit.AutoSize = true;
+            this.chkboxFit.Checked = true;
+            this.chkboxFit.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkboxFit.Location = new System.Drawing.Point(3, 4);
             this.chkboxFit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkboxFit.Name = "chkboxFit";
@@ -276,6 +276,11 @@
             this.inputOffset.Name = "inputOffset";
             this.inputOffset.Size = new System.Drawing.Size(137, 27);
             this.inputOffset.TabIndex = 7;
+            this.inputOffset.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.inputOffset.ValueChanged += new System.EventHandler(this.OnInput);
             // 
             // textFormatStatus
