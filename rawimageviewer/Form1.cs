@@ -10,8 +10,9 @@ namespace rawimageviewer
 
         public Form1()
         {
+            loadedFile = new byte[2];
+
             InitializeComponent();
-            pictureBox1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -49,6 +50,11 @@ namespace rawimageviewer
 
         void ReadConfig()
         {
+            pictureBox1.SizeMode = chkboxFit.Checked ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.Normal;
+            pictureBox1.InterpolationMode = chkboxInterpolation.Checked 
+                ? System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor
+                : System.Drawing.Drawing2D.InterpolationMode.Default;
+
             Decode((int)inputWidth.Value, (int)inputHeight.Value, PixelFormat.Format8bppIndexed);
         }
 
@@ -77,9 +83,10 @@ namespace rawimageviewer
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void chkBoxScaling_CheckedChanged(object sender, EventArgs e)
         {
-            pictureBox1.SizeMode = chkboxFit.Checked ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.Normal;
+            chkboxInterpolation.Enabled = chkboxFit.Checked;
+            ReadConfig();
         }
 
         private void inputWidth_Validated(object sender, EventArgs e)

@@ -34,6 +34,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnOpen = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkboxInterpolation = new System.Windows.Forms.CheckBox();
             this.chkboxFit = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.inputHeight = new System.Windows.Forms.NumericUpDown();
@@ -73,6 +74,7 @@
             // 
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(817, 626);
@@ -125,12 +127,29 @@
             this.flowLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.flowLayoutPanel2.AutoSize = true;
             this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel2.Controls.Add(this.chkboxInterpolation);
             this.flowLayoutPanel2.Controls.Add(this.chkboxFit);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 6);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(93, 25);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(216, 25);
             this.flowLayoutPanel2.TabIndex = 0;
+            // 
+            // chkboxInterpolation
+            // 
+            this.chkboxInterpolation.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.chkboxInterpolation.AutoSize = true;
+            this.chkboxInterpolation.Checked = true;
+            this.chkboxInterpolation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkboxInterpolation.Enabled = false;
+            this.chkboxInterpolation.Location = new System.Drawing.Point(96, 3);
+            this.chkboxInterpolation.Name = "chkboxInterpolation";
+            this.chkboxInterpolation.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.chkboxInterpolation.Size = new System.Drawing.Size(117, 19);
+            this.chkboxInterpolation.TabIndex = 1;
+            this.chkboxInterpolation.Text = "Nearest neighbor";
+            this.chkboxInterpolation.UseVisualStyleBackColor = true;
+            this.chkboxInterpolation.CheckedChanged += new System.EventHandler(this.chkBoxScaling_CheckedChanged);
             // 
             // chkboxFit
             // 
@@ -143,7 +162,7 @@
             this.chkboxFit.TabIndex = 0;
             this.chkboxFit.Text = "Fit to frame";
             this.chkboxFit.UseVisualStyleBackColor = true;
-            this.chkboxFit.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.chkboxFit.CheckedChanged += new System.EventHandler(this.chkBoxScaling_CheckedChanged);
             // 
             // panel1
             // 
@@ -255,5 +274,6 @@
         private Panel panel1;
         private NumericUpDown inputWidth;
         private NumericUpDown inputHeight;
+        private CheckBox chkboxInterpolation;
     }
 }
