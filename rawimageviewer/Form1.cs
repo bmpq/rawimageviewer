@@ -21,20 +21,9 @@ namespace rawimageviewer
                 LoadFile(path);
                 GuessDimensions();
 
-                /*
-                if (path.EndsWith(".aecache"))
-                {
-                    // default settings for after effects cached rendered frames
-
-                    // r8g8b8a8
-                    cbFormat.SelectedIndex = 15;
-
-                    // swap blue and red channels, i dont know why
-                    cbSwap.SelectedIndex = 3;
-
-                    if (inputOffset.Value == 0)
-                        inputOffset.Value = 1;
-                }*/
+                // adjust the window size according to the guessed dimensions
+                float ratio = (float)inputWidth.Value / (float)inputHeight.Value;
+                Size = new Size((int)(Size.Height * ratio), Size.Height);
             }
         }
 
