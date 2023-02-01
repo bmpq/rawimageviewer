@@ -172,6 +172,8 @@ namespace rawimageviewer
             int width = (int)Math.Sqrt(loadedFile.Length / 4);
             int height = (int)(width / 1.777777777777778);
 
+            int offset = (int)inputOffset.Value;
+
             int size = loadedFile.Length;
 
             if (size > 24500100)
@@ -192,9 +194,17 @@ namespace rawimageviewer
                 width = 640;
                 height = 640;
             }
+            else if (size > 520000) // 1080p quarter preview
+            {
+                width = 480;
+                height = 270;
+                offset = 25;
+            }
 
             inputWidth.Value = width;
             inputHeight.Value = height;
+
+            inputOffset.Value = offset;
         }
     }
 }
