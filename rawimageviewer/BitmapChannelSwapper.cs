@@ -8,7 +8,7 @@ namespace rawimageviewer
     {
         public enum ColorSwapType
         {
-            None,
+            Default,
             ShiftRight,
             ShiftLeft,
             SwapBlueAndRed,
@@ -18,7 +18,7 @@ namespace rawimageviewer
 
         public static Bitmap SwapColors(Bitmap bmp, ColorSwapType type)
         {
-            if (type == ColorSwapType.None)
+            if (type == ColorSwapType.Default)
                 return bmp;
 
             BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);

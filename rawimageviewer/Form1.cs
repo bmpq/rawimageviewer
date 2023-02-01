@@ -40,19 +40,13 @@ namespace rawimageviewer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cbFormat.DataSource = Enum.GetValues(typeof(PixelFormat));
-            cbFormat.SelectedIndex = 15;
-
             cbSwap.DataSource = Enum.GetValues(typeof(BitmapChannelSwapper.ColorSwapType));
             cbSwap.SelectedIndex = 3;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (pictureBox1.Image == null)
-            {
-                OpenFileDialog();
-            }
+            OpenFileDialog();
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -76,13 +70,14 @@ namespace rawimageviewer
 
         void ReadConfig()
         {
-            PixelFormat format = PixelFormat.Format32bppArgb;
+            PixelFormat format = PixelFormat.Format32bppRgb;
 
-            var selectedFormat = cbFormat.SelectedValue;
-            if (selectedFormat != null)
-                Enum.TryParse(selectedFormat.ToString(), out format);
+            if (chk16bits.Checked)
+                format = PixelFormat.Format64bppArgb;
+            else if (chkAlpha.Checked)
+                format = PixelFormat.Format32bppArgb;
 
-            BitmapChannelSwapper.ColorSwapType swapType = BitmapChannelSwapper.ColorSwapType.None;
+            BitmapChannelSwapper.ColorSwapType swapType = BitmapChannelSwapper.ColorSwapType.Default;
             var selectedSwap = cbSwap.SelectedValue;
             if (selectedSwap != null)
                 Enum.TryParse(selectedSwap.ToString(), out swapType);
@@ -128,19 +123,13 @@ namespace rawimageviewer
 
         private void UpdateOutput()
         {
+            // space thousands separator (# ### ###)
             var f = new NumberFormatInfo { NumberGroupSeparator = " " };
+
             textSize.Text = "File size: " + loadedFile.Length.ToString("N0", f) + " bytes";
 
-            if (pictureBox1.Image == null)
-            {
-                textFormatStatus.Text = "Failed to decode in " + cbFormat.SelectedItem.ToString();
-                textFormatStatus.ForeColor = Color.Red;
-            }
-            else
-            {
-                textFormatStatus.Text = "Decoded with " + pictureBox1.Image.PixelFormat.ToString();
-                textFormatStatus.ForeColor = default(Color);
-            }
+            textPixelAmount.Text = "Pixel amount:\n";
+            textPixelAmount.Text += GetEstimatedPixelAmount().ToString("N0", f);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -151,14 +140,14 @@ namespace rawimageviewer
             }
         }
 
-        private void chkBoxScaling_CheckedChanged(object sender, EventArgs e)
-        {
-            chkboxInterpolation.Enabled = chkboxFit.Checked;
-            ReadConfig();
-        }
-
         private void OnInput(object sender, EventArgs e)
         {
+            chkboxInterpolation.Enabled = chkboxFit.Checked;
+
+            if (chk16bits.Checked)
+                chkAlpha.Checked = true;
+            chkAlpha.Enabled = !chk16bits.Checked;
+
             ReadConfig();
         }
 
@@ -167,38 +156,58 @@ namespace rawimageviewer
             GuessDimensions();
         }
 
+        int GetEstimatedPixelAmount()
+        {
+            int result;
+
+            if (chk16bits.Checked)
+                result = loadedFile.Length / 8;
+            else
+                result = loadedFile.Length / (chkAlpha.Checked ? 4 : 3);
+
+            return result;
+        }
+
         private void GuessDimensions()
         {
-            int width = (int)Math.Sqrt(loadedFile.Length / 4);
-            int height = (int)(width / 1.777777777777778);
+            int offset = 25;
+            if (chk16bits.Checked)
+                offset--;
 
-            int offset = (int)inputOffset.Value;
+            int pixelAmount = GetEstimatedPixelAmount();
 
-            int size = loadedFile.Length;
+            // assume the 1:1 aspect ratio by default
+            int width = (int)Math.Sqrt(pixelAmount);
+            int height = width;
 
-            if (size > 24500100)
+            if (pixelAmount > 6144000)
             {
                 width = 3840;
                 height = 1608;
             }
-            else if (size > 6150100)
+            else if (pixelAmount > 1536000)
             {
                 width = 1920;
                 height = 800;
+            }
+            else if (pixelAmount > 6150100)
+            {
+                width = 1920;
+                height = 1080;
+            }
 
-                if (size > 7900100)
-                    height = 1080;
-            }
-            else if (size > 940000)
+            if (pixelAmount < 140000)
             {
-                width = 640;
-                height = 640;
-            }
-            else if (size > 520000) // 1080p quarter preview
-            {
-                width = 480;
-                height = 270;
-                offset = 25;
+                if (pixelAmount > 129600) // 1080x1080 quarter preview
+                {
+                    width = 480;
+                    height = 270;
+                }
+                else if (pixelAmount > 96000) // 1080x800 quarter preview
+                {
+                    width = 480;
+                    height = 200;
+                }
             }
 
             inputWidth.Value = width;
