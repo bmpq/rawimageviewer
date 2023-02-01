@@ -169,20 +169,35 @@ namespace rawimageviewer
             int width = (int)Math.Sqrt(pixelAmount);
             int height = width;
 
-            if (pixelAmount > 6144000)
+            if (pixelAmount > 8294400)
+            {
+                width = 3840;
+                height = 2160;
+            }
+            else if (pixelAmount > 6144000)
             {
                 width = 3840;
                 height = 1608;
+            }
+            else if (pixelAmount > 3686400)
+            {
+                width = 2560;
+                height = 1440;
+            }
+            else if (pixelAmount > 2073600)
+            {
+                width = 1920;
+                height = 1080;
             }
             else if (pixelAmount > 1536000)
             {
                 width = 1920;
                 height = 800;
             }
-            else if (pixelAmount > 6150100)
+            else if (pixelAmount > 921600)
             {
-                width = 1920;
-                height = 1080;
+                width = 1280;
+                height = 720;
             }
 
             if (pixelAmount < 140000)
