@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <BaseOutputPath>C:\apps\rawimageviewer</BaseOutputPath>
     <ApplicationIcon>res\aeicon_cache.ico</ApplicationIcon>
   </PropertyGroup>
 

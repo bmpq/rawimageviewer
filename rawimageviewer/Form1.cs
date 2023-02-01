@@ -16,7 +16,7 @@ namespace rawimageviewer
 
             InitializeComponent();
 
-            if (path != null)
+            if (path != null && path != string.Empty)
             {
                 LoadFile(path);
                 GuessDimensions();
