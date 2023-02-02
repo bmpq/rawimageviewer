@@ -154,6 +154,10 @@ namespace rawimageviewer
             else
                 result = loadedFile.Length / (chkAlpha.Checked ? 4 : 3);
 
+            result -= (int)inputOffset.Value;
+
+            result = Math.Max(result, 1);
+
             return result;
         }
 
@@ -162,6 +166,8 @@ namespace rawimageviewer
             int offset = 25;
             if (chk16bits.Checked)
                 offset--;
+
+            inputOffset.Value = offset;
 
             int pixelAmount = GetEstimatedPixelAmount();
 
@@ -216,8 +222,6 @@ namespace rawimageviewer
 
             inputWidth.Value = width;
             inputHeight.Value = height;
-
-            inputOffset.Value = offset;
         }
     }
 }
