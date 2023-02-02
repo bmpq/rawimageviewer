@@ -158,12 +158,12 @@ namespace rawimageviewer
         {
             int result;
 
-            if (chk16bits.Checked)
-                result = loadedFile.Length / 8;
-            else
-                result = loadedFile.Length / (chkAlpha.Checked ? 4 : 3);
+            int dataLength = loadedFile.Length - (int)inputOffset.Value;
 
-            result -= (int)inputOffset.Value;
+            if (chk16bits.Checked)
+                result = dataLength / 8;
+            else
+                result = dataLength / (chkAlpha.Checked ? 4 : 3);
 
             result = Math.Max(result, 1);
 
