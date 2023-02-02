@@ -240,9 +240,17 @@ namespace rawimageviewer
                 return;
             }
 
-            int width = BitConverter.ToInt32(loadedFile, 8);
-            int height = BitConverter.ToInt32(loadedFile, 12);
+            // the value at offset 16
+            // is for the color depth (bits per channel)
             bool eightbpc = BitConverter.ToUInt32(loadedFile, 16) == 8;
+
+            // theres is a width value at offset 8
+            // but it is sometimes wrong when opening a frame of a precomp(???)
+            // or it has something to do with masks i dont know
+            // the width value at offset 20 is always correct
+            // just need to divide it by the number of channels
+            int width = BitConverter.ToInt32(loadedFile, 20) / (eightbpc ? 4 : 8);
+            int height = BitConverter.ToInt32(loadedFile, 12);
 
             width = (int)Math.Clamp(width, inputWidth.Minimum, inputWidth.Maximum);
             height = (int)Math.Clamp(height, inputHeight.Minimum, inputHeight.Maximum);
@@ -250,8 +258,9 @@ namespace rawimageviewer
             inputWidth.Value = width;
             inputHeight.Value = height;
 
-            if (chk16bits.Checked)
-                chk16bits.Checked = !eightbpc;
+            chk16bits.Checked = !eightbpc;
+
+            chkAlpha.Checked = true;
 
             int offset = 25;
             if (!eightbpc)
