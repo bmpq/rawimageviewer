@@ -16,10 +16,17 @@ namespace rawimageviewer
 
             InitializeComponent();
 
+            cbSwap.DataSource = Enum.GetValues(typeof(BitmapChannelSwapper.ColorSwapType));
+            cbSwap.SelectedIndex = 0;
+
             if (path != null && path != string.Empty)
             {
                 LoadFile(path);
-                GuessDimensions();
+
+                if (path.EndsWith(".aecache"))
+                    ReadMetadata();
+                else
+                    GuessDimensions();
 
                 // adjust the window size according to the guessed dimensions
                 float ratio = (float)inputWidth.Value / (float)inputHeight.Value;
@@ -29,8 +36,6 @@ namespace rawimageviewer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cbSwap.DataSource = Enum.GetValues(typeof(BitmapChannelSwapper.ColorSwapType));
-            cbSwap.SelectedIndex = 3;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -48,13 +53,17 @@ namespace rawimageviewer
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 LoadFile(openFileDialog1.FileName);
+
+                if (openFileDialog1.FileName.EndsWith(".aecache"))
+                    ReadMetadata();
+                else
+                    ReadConfig();
             }
         }
 
         private void LoadFile(string imgPath)
         {
             loadedFile = File.ReadAllBytes(imgPath);
-            ReadConfig();
         }
 
         void ReadConfig()
@@ -163,12 +172,6 @@ namespace rawimageviewer
 
         private void GuessDimensions()
         {
-            int offset = 25;
-            if (chk16bits.Checked)
-                offset--;
-
-            inputOffset.Value = offset;
-
             int pixelAmount = GetEstimatedPixelAmount();
 
             // assume the 1:1 aspect ratio by default
@@ -222,6 +225,40 @@ namespace rawimageviewer
 
             inputWidth.Value = width;
             inputHeight.Value = height;
+        }
+
+        private void btnMetaData_Click(object sender, EventArgs e)
+        {
+            ReadMetadata();
+        }
+
+        private void ReadMetadata()
+        {
+            if (loadedFile.Length < 24)
+            {
+                MessageBox.Show("No metadata (file too small)");
+                return;
+            }
+
+            int width = BitConverter.ToInt32(loadedFile, 8);
+            int height = BitConverter.ToInt32(loadedFile, 12);
+            bool eightbpc = BitConverter.ToUInt32(loadedFile, 16) == 8;
+
+            width = (int)Math.Clamp(width, inputWidth.Minimum, inputWidth.Maximum);
+            height = (int)Math.Clamp(height, inputHeight.Minimum, inputHeight.Maximum);
+
+            inputWidth.Value = width;
+            inputHeight.Value = height;
+
+            if (chk16bits.Checked)
+                chk16bits.Checked = !eightbpc;
+
+            int offset = 25;
+            if (!eightbpc)
+                offset--;
+
+            inputOffset.Value = offset;
+            cbSwap.SelectedIndex = 3;
         }
     }
 }
