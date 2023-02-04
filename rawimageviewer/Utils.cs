@@ -14,7 +14,7 @@ namespace rawimageviewer
             if (bytes < unit) { return $"{bytes} B"; }
 
             var exp = (int)(Math.Log(bytes) / Math.Log(unit));
-            return $"{bytes / Math.Pow(unit, exp)} {("KMGTPE")[exp - 1]}B";
+            return $"{bytes / Math.Pow(unit, exp):F2} {("KMGTPE")[exp - 1]}B";
         }
     }
 }

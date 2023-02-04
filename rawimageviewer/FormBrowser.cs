@@ -20,6 +20,7 @@ namespace rawimageviewer
 
         private class FileData
         {
+            public string ID { get; set; }
             public string FilePath { get; set; }
             public DateTime CreationDate { get; set; }
             public long Size { get; set; }
@@ -69,10 +70,10 @@ namespace rawimageviewer
                 return;
             }
 
-            LoadFolder(dir.Parent.FullName);
+            LoadFolder(dir.Parent.FullName, imgPath);
         }
 
-        private void LoadFolder(string folderPathDiskCache)
+        private void LoadFolder(string folderPathDiskCache, string currentlyOpen)
         {
             string directory = folderPathDiskCache;
             List<FileData> Files = GetFilesRecursively(directory);
@@ -80,29 +81,37 @@ namespace rawimageviewer
 
             int count = 0;
             List<FileData> filteredFiles = new List<FileData>();
+
+            int indexOpened = -1;
             foreach (FileData file in Files)
             {
                 if (count >= MAX_ITEMS) break;
+
+                // looking for the currently open file
+                if (file.FilePath == currentlyOpen)
+                    indexOpened = count;
+
+                if (indexOpened == -1)
+                    continue;
+
                 filteredFiles.Add(file);
                 count++;
             }
 
             listView1.BeginUpdate();
             listView1.Items.Clear();
-            listView1.Columns.Clear();
-
-            listView1.Columns.Add("Creation Date", 150, HorizontalAlignment.Left);
-            listView1.Columns.Add("Time Since Creation", 150, HorizontalAlignment.Left);
-            listView1.Columns.Add("Size", 100, HorizontalAlignment.Left);
             foreach (FileData file in filteredFiles)
             {
-                ListViewItem item = new ListViewItem(file.CreationDateString);
+                ListViewItem item = new ListViewItem(file.ID);
+                item.SubItems.Add(file.CreationDateString);
                 item.SubItems.Add(file.TimeSinceCreation);
                 item.SubItems.Add(file.SizeString);
 
                 item.Tag = file;
                 listView1.Items.Add(item);
             }
+            if (indexOpened != -1)
+                listView1.Items[indexOpened].Selected = true;
             listView1.EndUpdate();
         }
 
@@ -120,7 +129,8 @@ namespace rawimageviewer
 
                         Files.Add(
                             new FileData 
-                            { 
+                            {
+                                ID = f.Name.Substring(0, f.Name.Length - f.Extension.Length),
                                 FilePath = f.FullName, 
                                 CreationDate = f.CreationTime,
                                 Size = f.Length
