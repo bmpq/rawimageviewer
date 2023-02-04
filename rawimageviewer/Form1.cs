@@ -10,6 +10,8 @@ namespace rawimageviewer
     {
         byte[] loadedFile;
 
+        FormBrowser formBrowser;
+
         public Form1(string path)
         {
             loadedFile = new byte[4];
@@ -61,9 +63,20 @@ namespace rawimageviewer
             }
         }
 
-        private void LoadFile(string imgPath)
+        public void LoadFile(string imgPath)
         {
             loadedFile = File.ReadAllBytes(imgPath);
+
+            if (imgPath.EndsWith(".aecache"))
+            {
+                if (formBrowser == null || formBrowser.IsDisposed)
+                {
+                    formBrowser = new FormBrowser(this);
+                }
+
+                formBrowser.Show();
+                formBrowser.SetPath(imgPath);
+            }
         }
 
         void ReadConfig()
@@ -232,7 +245,7 @@ namespace rawimageviewer
             ReadMetadata();
         }
 
-        private void ReadMetadata()
+        public void ReadMetadata()
         {
             if (loadedFile.Length < 24)
             {
