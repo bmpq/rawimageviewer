@@ -23,9 +23,24 @@ namespace rawimageviewer
             public string FilePath { get; set; }
             public DateTime CreationDate { get; set; }
 
-            public override string ToString()
+            public string CreationDateString
             {
-                return CreationDate.ToString("dd MMM | HH:mm:ss.fff");
+                get
+                {
+                    return CreationDate.ToString("dd-MMM hh:mm:ss.fff");
+                }
+            }
+
+            public string TimeSinceCreation
+            {
+                get
+                {
+                    TimeSpan elapsed = DateTime.Now - CreationDate;
+                    return elapsed.TotalDays >= 1 ? (int)elapsed.TotalDays + " day(s) ago"
+                        : elapsed.TotalHours >= 1 ? (int)elapsed.TotalHours + " hour(s) ago"
+                        : elapsed.TotalMinutes >= 1 ? (int)elapsed.TotalMinutes + " minute(s) ago"
+                        : (int)elapsed.TotalSeconds + " second(s) ago";
+                }
             }
         }
 
@@ -63,7 +78,21 @@ namespace rawimageviewer
                 count++;
             }
 
-            listBox1.DataSource = filteredFiles;
+            listView1.BeginUpdate();
+            listView1.Items.Clear();
+            listView1.Columns.Clear();
+
+            listView1.Columns.Add("Creation Date", 150, HorizontalAlignment.Left);
+            listView1.Columns.Add("Time Since Creation", 150, HorizontalAlignment.Left);
+
+            foreach (FileData file in filteredFiles)
+            {
+                ListViewItem item = new ListViewItem(file.CreationDateString);
+                item.SubItems.Add(file.TimeSinceCreation);
+                item.Tag = file;
+                listView1.Items.Add(item);
+            }
+            listView1.EndUpdate();
         }
 
         private List<FileData> GetFilesRecursively(string path)
@@ -90,9 +119,9 @@ namespace rawimageviewer
             return Files;
         }
 
-        private void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void listView1_DoubleClick(object sender, EventArgs e)
         {
-            FileData selectedFile = (FileData)listBox1.SelectedItem;
+            FileData selectedFile = (FileData)listView1.SelectedItems[0].Tag;
             mainForm.LoadFile(selectedFile.FilePath);
             mainForm.ReadMetadata();
         }
