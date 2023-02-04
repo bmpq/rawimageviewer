@@ -44,7 +44,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(307, 819);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(539, 747);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // listView1
@@ -54,7 +54,7 @@
             this.listView1.Location = new System.Drawing.Point(3, 3);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(301, 733);
+            this.listView1.Size = new System.Drawing.Size(533, 661);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -64,7 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(307, 819);
+            this.ClientSize = new System.Drawing.Size(539, 747);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FormBrowser";
             this.Text = "Disk cache browser";

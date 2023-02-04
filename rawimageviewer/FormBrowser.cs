@@ -22,6 +22,7 @@ namespace rawimageviewer
         {
             public string FilePath { get; set; }
             public DateTime CreationDate { get; set; }
+            public long Size { get; set; }
 
             public string CreationDateString
             {
@@ -40,6 +41,14 @@ namespace rawimageviewer
                         : elapsed.TotalHours >= 1 ? (int)elapsed.TotalHours + " hour(s) ago"
                         : elapsed.TotalMinutes >= 1 ? (int)elapsed.TotalMinutes + " minute(s) ago"
                         : (int)elapsed.TotalSeconds + " second(s) ago";
+                }
+            }
+
+            public string SizeString
+            {
+                get
+                {
+                    return Utils.FormatFileSize(Size);
                 }
             }
         }
@@ -84,11 +93,13 @@ namespace rawimageviewer
 
             listView1.Columns.Add("Creation Date", 150, HorizontalAlignment.Left);
             listView1.Columns.Add("Time Since Creation", 150, HorizontalAlignment.Left);
-
+            listView1.Columns.Add("Size", 100, HorizontalAlignment.Left);
             foreach (FileData file in filteredFiles)
             {
                 ListViewItem item = new ListViewItem(file.CreationDateString);
                 item.SubItems.Add(file.TimeSinceCreation);
+                item.SubItems.Add(file.SizeString);
+
                 item.Tag = file;
                 listView1.Items.Add(item);
             }
@@ -107,7 +118,13 @@ namespace rawimageviewer
                         if (f.Extension != ".aecache")
                             continue;
 
-                        Files.Add(new FileData { FilePath = f.FullName, CreationDate = f.CreationTime });
+                        Files.Add(
+                            new FileData 
+                            { 
+                                FilePath = f.FullName, 
+                                CreationDate = f.CreationTime,
+                                Size = f.Length
+                            });
                     }
                     Files.AddRange(GetFilesRecursively(d));
                 }
