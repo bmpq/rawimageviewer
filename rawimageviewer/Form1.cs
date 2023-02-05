@@ -30,9 +30,19 @@ namespace rawimageviewer
                 else
                     GuessDimensions();
 
-                // adjust the window size according to the guessed dimensions
-                float ratio = (float)inputWidth.Value / (float)inputHeight.Value;
-                Size = new Size((int)(Size.Height * ratio), Size.Height);
+                AutoAdjustWindowSize();
+            }
+            else
+            {
+                // if there was no argument when launching the program
+                // open the most recent frame that AE saved 
+
+                if (Configuration.DiskCachePath == string.Empty)
+                    return;
+
+                OpenBrowser();
+                formBrowser.OpenMostRecent();
+                AutoAdjustWindowSize();
             }
         }
 
@@ -288,6 +298,12 @@ namespace rawimageviewer
             cbSwap.SelectedIndex = 3;
 
             ReadInputControls(); // need this when opening from the browser
+        }
+
+        void AutoAdjustWindowSize()
+        {
+            float ratio = (float)inputWidth.Value / (float)inputHeight.Value;
+            Size = new Size((int)(Size.Height * ratio), Size.Height);
         }
     }
 }

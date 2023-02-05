@@ -62,6 +62,20 @@ namespace rawimageviewer
             InitializeComponent();
         }
 
+        public void OpenMostRecent()
+        {
+            LoadAllCache(Configuration.DiskCachePath);
+
+            if (files == null || files.Count == 0)
+            {
+                Close();
+                return;
+            }
+
+            mainForm.LoadFile(files[0].FilePath);
+            mainForm.ReadMetadata();
+        }
+
         public void OpenCacheFolderFromImage(string pathImg)
         {
             var dir = Directory.GetParent(pathImg);
