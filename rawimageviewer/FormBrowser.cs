@@ -54,6 +54,8 @@ namespace rawimageviewer
             }
         }
 
+        List<FileData> files;
+
         public FormBrowser(Form1 mainForm)
         {
             this.mainForm = mainForm;
@@ -76,29 +78,33 @@ namespace rawimageviewer
                 Configuration.Save();
             }
 
-            OpenCacheFolder(dir.Parent.FullName, pathImg);
+            if (files == null || files.Count == 0)
+                LoadAllCache(Configuration.DiskCachePath);
+
+            DisplayList(pathImg);
         }
 
-        public void OpenCacheFolder(string folderPathDiskCache, string currentlyOpen)
+        void DisplayList(string pathCurrentlyOpen = "")
         {
-            string directory = folderPathDiskCache;
-            List<FileData> Files = GetFilesRecursively(directory);
-            Files.Sort((f2, f1) => f1.CreationDate.CompareTo(f2.CreationDate));
+            if (files == null)
+                LoadAllCache(Configuration.DiskCachePath);
 
             int count = 0;
             List<FileData> filteredFiles = new List<FileData>();
 
             int indexOpened = -1;
-            foreach (FileData file in Files)
+            foreach (FileData file in files)
             {
                 if (count >= MAX_ITEMS) break;
 
-                // looking for the currently open file
-                if (file.FilePath == currentlyOpen)
-                    indexOpened = count;
+                if (pathCurrentlyOpen != null && pathCurrentlyOpen != "")
+                {
+                    if (file.FilePath == pathCurrentlyOpen)
+                        indexOpened = count;
 
-                if (indexOpened == -1)
-                    continue;
+                    if (indexOpened == -1)
+                        continue;
+                }
 
                 filteredFiles.Add(file);
                 count++;
@@ -119,6 +125,12 @@ namespace rawimageviewer
             if (indexOpened != -1)
                 listView1.Items[indexOpened].Selected = true;
             listView1.EndUpdate();
+        }
+
+        private void LoadAllCache(string dir)
+        {
+            files = GetFilesRecursively(dir);
+            files.Sort((f2, f1) => f1.CreationDate.CompareTo(f2.CreationDate));
         }
 
         private List<FileData> GetFilesRecursively(string path)
