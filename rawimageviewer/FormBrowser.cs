@@ -60,9 +60,9 @@ namespace rawimageviewer
             InitializeComponent();
         }
 
-        public void SetPath(string imgPath)
+        public void OpenCacheFolderFromImage(string pathImg)
         {
-            var dir = Directory.GetParent(imgPath);
+            var dir = Directory.GetParent(pathImg);
 
             if (dir == null || dir.Parent == null)
             {
@@ -70,10 +70,16 @@ namespace rawimageviewer
                 return;
             }
 
-            LoadFolder(dir.Parent.FullName, imgPath);
+            if (Configuration.DiskCachePath != dir.Parent.FullName)
+            {
+                Configuration.DiskCachePath = dir.Parent.FullName;
+                Configuration.Save();
+            }
+
+            OpenCacheFolder(dir.Parent.FullName, pathImg);
         }
 
-        private void LoadFolder(string folderPathDiskCache, string currentlyOpen)
+        public void OpenCacheFolder(string folderPathDiskCache, string currentlyOpen)
         {
             string directory = folderPathDiskCache;
             List<FileData> Files = GetFilesRecursively(directory);

@@ -59,7 +59,7 @@ namespace rawimageviewer
                 if (openFileDialog1.FileName.EndsWith(".aecache"))
                     ReadMetadata();
                 else
-                    ReadConfig();
+                    ReadInputControls();
             }
         }
 
@@ -69,17 +69,22 @@ namespace rawimageviewer
 
             if (imgPath.EndsWith(".aecache"))
             {
-                if (formBrowser == null || formBrowser.IsDisposed)
-                {
-                    formBrowser = new FormBrowser(this);
-                }
-
-                formBrowser.Show();
-                formBrowser.SetPath(imgPath);
+                OpenBrowser();
+                formBrowser.OpenCacheFolderFromImage(imgPath);
             }
         }
 
-        void ReadConfig()
+        void OpenBrowser()
+        {
+            if (formBrowser == null || formBrowser.IsDisposed)
+            {
+                formBrowser = new FormBrowser(this);
+            }
+
+            formBrowser.Show();
+        }
+
+        void ReadInputControls()
         {
             PixelFormat format = PixelFormat.Format32bppRgb;
 
@@ -159,7 +164,7 @@ namespace rawimageviewer
                 chkAlpha.Checked = true;
             chkAlpha.Enabled = !chk16bits.Checked;
 
-            ReadConfig();
+            ReadInputControls();
         }
 
         private void btnGuess_Click(object sender, EventArgs e)
@@ -281,6 +286,8 @@ namespace rawimageviewer
 
             inputOffset.Value = offset;
             cbSwap.SelectedIndex = 3;
+
+            ReadInputControls(); // need this when opening from the browser
         }
     }
 }
