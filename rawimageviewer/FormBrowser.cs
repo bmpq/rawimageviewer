@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -143,8 +144,19 @@ namespace rawimageviewer
 
         private void LoadAllCache(string dir)
         {
-            files = GetFilesRecursively(dir);
-            files.Sort((f2, f1) => f1.CreationDate.CompareTo(f2.CreationDate));
+            try
+            {
+                files = GetFilesRecursively(dir);
+                files.Sort((f2, f1) => f1.CreationDate.CompareTo(f2.CreationDate));
+            }
+            catch
+            {
+                MessageBox.Show("Error scanning path:\n" + dir);
+                return;
+            }
+
+            textFramesAmount.Text = "Frames: " + files.Count;
+            textPath.Text = dir;
         }
 
         private List<FileData> GetFilesRecursively(string path)
@@ -183,6 +195,26 @@ namespace rawimageviewer
             FileData selectedFile = (FileData)listView1.SelectedItems[0].Tag;
             mainForm.LoadFile(selectedFile.FilePath);
             mainForm.ReadMetadata();
+        }
+
+        private void btnScan_Click(object sender, EventArgs e)
+        {
+            listView1.Items.Clear();
+            LoadAllCache(Configuration.DiskCachePath);
+            DisplayList();
+        }
+
+        private void textPath_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(Configuration.DiskCachePath))
+            {
+                Process.Start(new ProcessStartInfo()
+                {
+                    FileName = Configuration.DiskCachePath + Path.DirectorySeparatorChar,
+                    UseShellExecute = true,
+                    Verb = "open"
+                });
+            };
         }
     }
 }
