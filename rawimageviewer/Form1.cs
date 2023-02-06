@@ -8,6 +8,7 @@ namespace rawimageviewer
 {
     public partial class Form1 : Form
     {
+        string loadedFilePath;
         byte[] loadedFile;
 
         FormBrowser formBrowser;
@@ -75,6 +76,11 @@ namespace rawimageviewer
 
         public void LoadFile(string imgPath)
         {
+            if (imgPath == loadedFilePath)
+                return;
+
+            loadedFilePath = imgPath;
+
             loadedFile = File.ReadAllBytes(imgPath);
 
             if (imgPath.EndsWith(".aecache"))

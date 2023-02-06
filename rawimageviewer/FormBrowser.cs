@@ -17,7 +17,7 @@ namespace rawimageviewer
     {
         private Form1 mainForm; // is this the right way to do this??
 
-        private const int MAX_ITEMS = 100;
+        private const int MAX_ITEMS = 1000;
 
         private class FileData
         {
@@ -66,6 +66,7 @@ namespace rawimageviewer
         public void OpenMostRecent()
         {
             LoadAllCache(Configuration.DiskCachePath);
+            DisplayList();
 
             if (files == null || files.Count == 0)
             {
@@ -94,12 +95,13 @@ namespace rawimageviewer
             }
 
             if (files == null || files.Count == 0)
+            {
                 LoadAllCache(Configuration.DiskCachePath);
-
-            DisplayList(pathImg);
+                DisplayList();
+            }
         }
 
-        void DisplayList(string pathCurrentlyOpen = "")
+        void DisplayList()
         {
             if (files == null)
                 LoadAllCache(Configuration.DiskCachePath);
@@ -107,19 +109,9 @@ namespace rawimageviewer
             int count = 0;
             List<FileData> filteredFiles = new List<FileData>();
 
-            int indexOpened = -1;
             foreach (FileData file in files)
             {
                 if (count >= MAX_ITEMS) break;
-
-                if (pathCurrentlyOpen != null && pathCurrentlyOpen != "")
-                {
-                    if (file.FilePath == pathCurrentlyOpen)
-                        indexOpened = count;
-
-                    if (indexOpened == -1)
-                        continue;
-                }
 
                 filteredFiles.Add(file);
                 count++;
@@ -137,8 +129,7 @@ namespace rawimageviewer
                 item.Tag = file;
                 listView1.Items.Add(item);
             }
-            if (indexOpened != -1)
-                listView1.Items[indexOpened].Selected = true;
+
             listView1.EndUpdate();
         }
 
@@ -190,15 +181,9 @@ namespace rawimageviewer
             return Files;
         }
 
-        private void listView1_DoubleClick(object sender, EventArgs e)
-        {
-            FileData selectedFile = (FileData)listView1.SelectedItems[0].Tag;
-            mainForm.LoadFile(selectedFile.FilePath);
-            mainForm.ReadMetadata();
-        }
-
         private void btnScan_Click(object sender, EventArgs e)
         {
+            textFramesAmount.Text = "";
             listView1.Items.Clear();
             LoadAllCache(Configuration.DiskCachePath);
             DisplayList();
@@ -215,6 +200,16 @@ namespace rawimageviewer
                     Verb = "open"
                 });
             };
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count == 0)
+                return;
+
+            FileData selectedFile = (FileData)listView1.SelectedItems[0].Tag;
+            mainForm.LoadFile(selectedFile.FilePath);
+            mainForm.ReadMetadata();
         }
     }
 }
