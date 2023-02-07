@@ -83,12 +83,36 @@ namespace rawimageviewer
             }
         }
 
+        private class FileComparerDate : IComparer<FileData>
+        {
+            public bool descending;
+
+            int IComparer<FileData>.Compare(FileData? x, FileData? y)
+            {
+                return x.CreationDate.CompareTo(y.CreationDate) * (descending ? 1 : -1);
+            }
+        }
+
+        private class FileComparerSize : IComparer<FileData>
+        {
+            public bool descending;
+
+            int IComparer<FileData>.Compare(FileData? x, FileData? y)
+            {
+                return x.Size.CompareTo(y.Size) * (descending ? 1 : -1);
+            }
+        }
+
+        IComparer<FileData> comparer;
+
         List<FileData> files;
 
         public FormBrowser(Form1 mainForm)
         {
             this.mainForm = mainForm;
             InitializeComponent();
+
+            comparer = new FileComparerDate();
         }
 
         public void OpenMostRecent()
@@ -157,7 +181,7 @@ namespace rawimageviewer
                 desiredPage = (selectedFileIndex / PAGE_SIZE) + 1;
             }
             
-            DisplayList(page, openedFile);
+            DisplayList(desiredPage, openedFile);
         }
 
         void DisplayList(int page, FileData openedFile)
@@ -187,6 +211,9 @@ namespace rawimageviewer
 
                 listView1.Items.Add(item);
             }
+
+            if (listView1.SelectedIndices.Count > 0)
+                listView1.EnsureVisible(listView1.SelectedIndices[0]);
 
             listView1.EndUpdate();
 
@@ -250,7 +277,7 @@ namespace rawimageviewer
             try
             {
                 files = GetFilesRecursively(dir);
-                files.Sort((f2, f1) => f1.CreationDate.CompareTo(f2.CreationDate));
+                files.Sort(comparer);
             }
             catch
             {
@@ -353,6 +380,31 @@ namespace rawimageviewer
                 return;
 
             DisplayList(p, null);
+        }
+
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == 1)
+            {
+                if (comparer is FileComparerDate date)
+                    date.descending = !date.descending;
+                else
+                    comparer = new FileComparerDate();
+            }
+            else if (e.Column == 2)
+            {
+                if (comparer is FileComparerSize size)
+                    size.descending = !size.descending;
+                else
+                    comparer = new FileComparerSize();
+            }
+            else
+            {
+                return;
+            }
+
+            LoadAllCache(Configuration.DiskCachePath);
+            DisplayList(mainForm.loadedFilePath);
         }
     }
 }
