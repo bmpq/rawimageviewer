@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 
 namespace rawimageviewer
 {
@@ -17,7 +16,8 @@ namespace rawimageviewer
     {
         private Form1 mainForm; // is this the right way to do this??
 
-        private const int MAX_ITEMS = 1000;
+        private const int PAGE_SIZE = 1000;
+        private int page;
 
         private class FileData
         {
@@ -66,7 +66,6 @@ namespace rawimageviewer
         public void OpenMostRecent()
         {
             LoadAllCache(Configuration.DiskCachePath);
-            DisplayList();
 
             if (files == null || files.Count == 0)
             {
@@ -76,6 +75,8 @@ namespace rawimageviewer
 
             mainForm.LoadFile(files[0].FilePath);
             mainForm.ReadMetadata();
+
+            DisplayList(files[0]);
         }
 
         public void OpenCacheFolderFromImage(string pathImg)
@@ -97,29 +98,56 @@ namespace rawimageviewer
             if (files == null || files.Count == 0)
             {
                 LoadAllCache(Configuration.DiskCachePath);
-                DisplayList();
+                DisplayList(pathImg);
             }
         }
 
-        void DisplayList()
+        void DisplayList(string pathOpenedFile)
+        {
+            if (files == null || files.Count == 0)
+                LoadAllCache(Configuration.DiskCachePath);
+
+            FileData fileData = files.FirstOrDefault(x => x.FilePath == pathOpenedFile, null);
+
+            DisplayList(fileData);
+        }
+
+        void DisplayList(FileData openedFile)
         {
             if (files == null)
                 LoadAllCache(Configuration.DiskCachePath);
 
-            int count = 0;
-            List<FileData> filteredFiles = new List<FileData>();
+            int desiredPage = 1;
 
-            foreach (FileData file in files)
+            if (openedFile == null)
             {
-                if (count >= MAX_ITEMS) break;
-
-                filteredFiles.Add(file);
-                count++;
+                desiredPage = page;
             }
+            else
+            {
+                int selectedFileIndex = files.IndexOf(openedFile);
+                desiredPage = (selectedFileIndex / PAGE_SIZE) + 1;
+            }
+            
+            DisplayList(page, openedFile);
+        }
+
+        void DisplayList(int page, FileData openedFile)
+        {
+            page = Math.Clamp(page, 1, GetTotalPages());
+            this.page = page;
+
+            // Calculate the start and end indices for the current page
+            int startIndex = (page - 1) * PAGE_SIZE;
+            int endIndex = Math.Min(startIndex + PAGE_SIZE, files.Count);
+
+            // Get the files for the current page
+            List<FileData> filesForPage = files.GetRange(startIndex, endIndex - startIndex);
 
             listView1.BeginUpdate();
             listView1.Items.Clear();
-            foreach (FileData file in filteredFiles)
+
+            foreach (var file in filesForPage)
             {
                 ListViewItem item = new ListViewItem(file.ID);
                 item.SubItems.Add(file.CreationDateString);
@@ -127,10 +155,30 @@ namespace rawimageviewer
                 item.SubItems.Add(file.SizeString);
 
                 item.Tag = file;
+
+                item.Selected = (file == openedFile);
+
                 listView1.Items.Add(item);
             }
 
             listView1.EndUpdate();
+
+            inputPage.Text = page.ToString();
+            int totalPages = GetTotalPages();
+            textPagesTotal.Text = "/ " + totalPages.ToString();
+
+            btnPageNext.Enabled = page < totalPages;
+            btnPagePrev.Enabled = page > 1;
+        }
+
+        private int GetTotalPages()
+        {
+            int totalPages = files.Count / PAGE_SIZE;
+            if (files.Count % PAGE_SIZE > 0)
+            {
+                totalPages++;
+            }
+            return totalPages;
         }
 
         private void FormBrowser_KeyDown(object sender, KeyEventArgs e)
@@ -229,7 +277,7 @@ namespace rawimageviewer
             listView1.SelectedItems.Clear();
             listView1.Items.Clear();
             LoadAllCache(Configuration.DiskCachePath);
-            DisplayList();
+            DisplayList(mainForm.loadedFilePath);
         }
 
         private void textPath_Click(object sender, EventArgs e)
@@ -251,9 +299,33 @@ namespace rawimageviewer
                 return;
 
             FileData selectedFile = (FileData)listView1.SelectedItems[0].Tag;
+            if (selectedFile.FilePath == mainForm.loadedFilePath)
+                return;
+
             bool loaded = mainForm.LoadFile(selectedFile.FilePath);
             if (loaded)
                 mainForm.ReadMetadata();
+        }
+
+        private void btnPageNext_Click(object sender, EventArgs e)
+        {
+            DisplayList(page + 1, null);
+        }
+
+        private void btnPagePrev_Click(object sender, EventArgs e)
+        {
+            DisplayList(page - 1, null);
+        }
+
+        private void inputPage_TextChanged(object sender, EventArgs e)
+        {
+            int p = page;
+            int.TryParse(inputPage.Text, out p);
+
+            if (p == page)
+                return;
+
+            DisplayList(p, null);
         }
     }
 }

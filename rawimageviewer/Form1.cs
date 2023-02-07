@@ -8,7 +8,7 @@ namespace rawimageviewer
 {
     public partial class Form1 : Form
     {
-        string loadedFilePath;
+        public string loadedFilePath { get; private set; }
         byte[] loadedFile;
 
         FormBrowser formBrowser;
