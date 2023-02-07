@@ -328,5 +328,18 @@ namespace rawimageviewer
             float ratio = (float)inputWidth.Value / (float)inputHeight.Value;
             Size = new Size((int)(Size.Height * ratio), Size.Height);
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "PNG Image|*.png";
+            saveFileDialog1.Title = "Save as PNG Image";
+            saveFileDialog1.FileName = "image.png";
+            DialogResult dresult = saveFileDialog1.ShowDialog();
+
+            if (dresult == DialogResult.OK && saveFileDialog1.FileName != "")
+            {
+                pictureBox1.Image.Save(saveFileDialog1.FileName, ImageFormat.Png);
+            }
+        }
     }
 }

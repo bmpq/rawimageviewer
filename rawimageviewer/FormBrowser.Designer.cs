@@ -122,7 +122,7 @@
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(94, 29);
             this.btnScan.TabIndex = 2;
-            this.btnScan.Text = "Scan";
+            this.btnScan.Text = "Refresh";
             this.btnScan.UseVisualStyleBackColor = true;
             this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 

@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox1 = new rawimageviewer.PictureBoxWithInterpolationMode();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnOpen = new System.Windows.Forms.Button();
             this.textSize = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnExport = new System.Windows.Forms.Button();
             this.chkboxInterpolation = new System.Windows.Forms.CheckBox();
             this.chkboxFit = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new rawimageviewer.PictureBoxWithInterpolationMode();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnReadMeta = new System.Windows.Forms.Button();
             this.textPixelAmount = new System.Windows.Forms.Label();
@@ -51,14 +52,12 @@
             this.inputHeight = new System.Windows.Forms.NumericUpDown();
             this.inputWidth = new System.Windows.Forms.NumericUpDown();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.inputOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputHeight)).BeginInit();
@@ -70,8 +69,8 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 203F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -80,41 +79,26 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(896, 748);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(982, 748);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // pictureBox1
+            // tableLayoutPanel2
             // 
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 4);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(687, 684);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 696);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel2);
-            this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.splitContainer1.Size = new System.Drawing.Size(687, 48);
-            this.splitContainer1.SplitterDistance = 297;
-            this.splitContainer1.SplitterWidth = 5;
-            this.splitContainer1.TabIndex = 1;
+            this.tableLayoutPanel2.AutoSize = true;
+            this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 695);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(773, 50);
+            this.tableLayoutPanel2.TabIndex = 1;
             // 
             // flowLayoutPanel1
             // 
@@ -123,11 +107,12 @@
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Controls.Add(this.btnOpen);
             this.flowLayoutPanel1.Controls.Add(this.textSize);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 4);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 4);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(113, 41);
             this.flowLayoutPanel1.TabIndex = 0;
+            this.flowLayoutPanel1.WrapContents = false;
             // 
             // btnOpen
             // 
@@ -150,27 +135,41 @@
             this.textSize.Size = new System.Drawing.Size(15, 20);
             this.textSize.TabIndex = 1;
             this.textSize.Text = "-";
-            this.textSize.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.textSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.flowLayoutPanel2.AutoSize = true;
             this.flowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel2.Controls.Add(this.btnExport);
             this.flowLayoutPanel2.Controls.Add(this.chkboxInterpolation);
             this.flowLayoutPanel2.Controls.Add(this.chkboxFit);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(116, 8);
-            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(366, 5);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(266, 32);
+            this.flowLayoutPanel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(404, 39);
             this.flowLayoutPanel2.TabIndex = 0;
+            this.flowLayoutPanel2.WrapContents = false;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnExport.Location = new System.Drawing.Point(269, 3);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnExport.Size = new System.Drawing.Size(132, 33);
+            this.btnExport.TabIndex = 2;
+            this.btnExport.Text = "Export to PNG...";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // chkboxInterpolation
             // 
             this.chkboxInterpolation.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.chkboxInterpolation.AutoSize = true;
-            this.chkboxInterpolation.Location = new System.Drawing.Point(117, 4);
+            this.chkboxInterpolation.Location = new System.Drawing.Point(117, 7);
             this.chkboxInterpolation.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkboxInterpolation.Name = "chkboxInterpolation";
             this.chkboxInterpolation.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -183,10 +182,10 @@
             // chkboxFit
             // 
             this.chkboxFit.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.chkboxFit.AutoSize = true;
+            this.chkboxFit.AutoEllipsis = true;
             this.chkboxFit.Checked = true;
             this.chkboxFit.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkboxFit.Location = new System.Drawing.Point(3, 4);
+            this.chkboxFit.Location = new System.Drawing.Point(3, 7);
             this.chkboxFit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkboxFit.Name = "chkboxFit";
             this.chkboxFit.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -195,6 +194,19 @@
             this.chkboxFit.Text = "Fit to frame";
             this.chkboxFit.UseVisualStyleBackColor = true;
             this.chkboxFit.CheckedChanged += new System.EventHandler(this.OnInput);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(773, 684);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // panel1
             // 
@@ -213,7 +225,7 @@
             this.panel1.Controls.Add(this.inputHeight);
             this.panel1.Controls.Add(this.inputWidth);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(696, 4);
+            this.panel1.Location = new System.Drawing.Point(782, 4);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(197, 684);
@@ -398,7 +410,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(896, 748);
+            this.ClientSize = new System.Drawing.Size(982, 748);
             this.Controls.Add(this.tableLayoutPanel1);
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -409,17 +421,13 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.inputOffset)).EndInit();
@@ -436,7 +444,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Button btnOpen;
         private OpenFileDialog openFileDialog1;
-        private SplitContainer splitContainer1;
         private FlowLayoutPanel flowLayoutPanel2;
         private CheckBox chkboxFit;
         private Panel panel1;
@@ -454,5 +461,8 @@
         private CheckBox chk16bits;
         private Label textPixelAmount;
         private Button btnReadMeta;
+        private Button btnExport;
+        private TableLayoutPanel tableLayoutPanel2;
+        private SaveFileDialog saveFileDialog1;
     }
 }
