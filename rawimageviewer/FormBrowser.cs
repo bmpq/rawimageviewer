@@ -133,6 +133,43 @@ namespace rawimageviewer
             listView1.EndUpdate();
         }
 
+        private void FormBrowser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (listView1.SelectedItems.Count > 0)
+                {
+                    DeleteSelectedFrames();
+                }
+            }
+        }
+
+        private void DeleteSelectedFrames()
+        {
+            string message = "Are you sure you want to permanently delete " + listView1.SelectedItems.Count + " file(s)?";
+            string title = "Confirm Delete";
+
+            DialogResult dialogResult = MessageBox.Show(
+                message, 
+                title, 
+                MessageBoxButtons.YesNo, 
+                MessageBoxIcon.Question, 
+                MessageBoxDefaultButton.Button2);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                for (int i = 0; i < listView1.SelectedItems.Count; i++)
+                {
+                    FileData fileData = (FileData)listView1.SelectedItems[i].Tag;
+
+                    System.IO.File.Delete(fileData.FilePath);
+                }
+
+                ScanFolderAndDisplay();
+                mainForm.LoadFile("");
+            }
+        }
+
         private void LoadAllCache(string dir)
         {
             try
@@ -183,7 +220,13 @@ namespace rawimageviewer
 
         private void btnScan_Click(object sender, EventArgs e)
         {
+            ScanFolderAndDisplay();
+        }
+
+        private void ScanFolderAndDisplay()
+        {
             textFramesAmount.Text = "";
+            listView1.SelectedItems.Clear();
             listView1.Items.Clear();
             LoadAllCache(Configuration.DiskCachePath);
             DisplayList();
@@ -208,8 +251,9 @@ namespace rawimageviewer
                 return;
 
             FileData selectedFile = (FileData)listView1.SelectedItems[0].Tag;
-            mainForm.LoadFile(selectedFile.FilePath);
-            mainForm.ReadMetadata();
+            bool loaded = mainForm.LoadFile(selectedFile.FilePath);
+            if (loaded)
+                mainForm.ReadMetadata();
         }
     }
 }

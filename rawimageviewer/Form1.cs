@@ -70,16 +70,31 @@ namespace rawimageviewer
                 if (openFileDialog1.FileName.EndsWith(".aecache"))
                     ReadMetadata();
                 else
-                    ReadInputControls();
+                {
+                    formBrowser.Close();
+                    if (cbSwap.SelectedIndex != 0)
+                        cbSwap.SelectedIndex = 0;
+                    else
+                        ReadInputControls();
+                }
             }
         }
 
-        public void LoadFile(string imgPath)
+        public bool LoadFile(string imgPath)
         {
             if (imgPath == loadedFilePath)
-                return;
+                return true;
 
             loadedFilePath = imgPath;
+
+            if (!File.Exists(imgPath))
+            {
+                loadedFile = new byte[4];
+                pictureBox1.Image = null;
+
+                UpdateOutput();
+                return false;
+            }
 
             loadedFile = File.ReadAllBytes(imgPath);
 
@@ -88,6 +103,8 @@ namespace rawimageviewer
                 OpenBrowser();
                 formBrowser.OpenCacheFolderFromImage(imgPath);
             }
+
+            return true;
         }
 
         void OpenBrowser()
@@ -122,6 +139,8 @@ namespace rawimageviewer
 
 
             Decode((int)inputWidth.Value, (int)inputHeight.Value, (int)inputOffset.Value, format, swapType);
+
+            UpdateOutput();
         }
 
         private void Decode(int width, int height, int offset, PixelFormat format, BitmapChannelSwapper.ColorSwapType swapType)
@@ -149,8 +168,6 @@ namespace rawimageviewer
             {
                 pictureBox1.Image = null;
             }
-
-            UpdateOutput();
         }
 
         private void UpdateOutput()
