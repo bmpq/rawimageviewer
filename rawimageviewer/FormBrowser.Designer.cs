@@ -32,7 +32,6 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnScan = new System.Windows.Forms.Button();
@@ -72,7 +71,6 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3,
             this.columnHeader4});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
@@ -92,12 +90,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Date created";
-            this.columnHeader2.Width = 150;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Time since created";
-            this.columnHeader3.Width = 120;
+            this.columnHeader2.Width = 280;
             // 
             // columnHeader4
             // 
@@ -237,7 +230,6 @@
         private ListView listView1;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader4;
         private FlowLayoutPanel flowLayoutPanel1;
         private Label textFramesAmount;

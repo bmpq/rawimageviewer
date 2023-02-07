@@ -39,10 +39,38 @@ namespace rawimageviewer
                 get
                 {
                     TimeSpan elapsed = DateTime.Now - CreationDate;
-                    return elapsed.TotalDays >= 1 ? (int)elapsed.TotalDays + " day(s) ago"
-                        : elapsed.TotalHours >= 1 ? (int)elapsed.TotalHours + " hour(s) ago"
-                        : elapsed.TotalMinutes >= 1 ? (int)elapsed.TotalMinutes + " minute(s) ago"
-                        : (int)elapsed.TotalSeconds + " second(s) ago";
+
+                    string text;
+                    int n = 1;
+
+                    if (elapsed.TotalDays >= 1)
+                    {
+                        n = (int)elapsed.TotalDays;
+                        text = n + " day";
+                    }
+                    else if (elapsed.TotalHours >= 1)
+                    {
+                        n = (int)elapsed.TotalHours;
+                        text = n + " hour";
+                    }
+                    else if (elapsed.TotalMinutes >= 1)
+                    {
+                        n = (int)elapsed.TotalMinutes;
+                        text = n + " minute";
+                    }
+                    else
+                    {
+                        n = (int)elapsed.TotalSeconds;
+                        text = n + " second";
+                    }
+
+                    // plural
+                    if (n > 1)
+                        text += "s";
+
+                    text += " ago";
+
+                    return text;
                 }
             }
 
@@ -150,8 +178,7 @@ namespace rawimageviewer
             foreach (var file in filesForPage)
             {
                 ListViewItem item = new ListViewItem(file.ID);
-                item.SubItems.Add(file.CreationDateString);
-                item.SubItems.Add(file.TimeSinceCreation);
+                item.SubItems.Add(file.CreationDateString + "  (" + file.TimeSinceCreation + ")");
                 item.SubItems.Add(file.SizeString);
 
                 item.Tag = file;
